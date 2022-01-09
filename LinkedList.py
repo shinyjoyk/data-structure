@@ -2,6 +2,7 @@ class Node:
     def __init__(self,data):
         self.data = data
         self.next = None
+        self.priv = None
 
 class SinglyLinkedList:
     def __init__(self):
@@ -138,3 +139,88 @@ class CircularlyLinkedList:
             current_node = current_node.next
         result += str(current_node.data)
         return result+"\n"
+
+class DoublyLinkedList:
+    def __init__(self):
+        dummy = Node("dummy")
+        self.head = dummy
+        self.tail = dummy
+        
+        self.num_of_data = 0
+    
+    def size(self):
+        return self.num_of_data
+    
+    def isEmpty(self):
+        return self.num_of_data == 0
+    
+    def first(self):
+        if self.isEmpty():return -1
+        return self.head.data
+    
+    def last(self):
+        if self.isEmpty():return -1
+        return self.tail.data
+    
+    def addFirst(self,data):
+        new_node = Node(data)
+        if self.size() == 0:
+            self.head = new_node
+            self.tail = self.head
+        else:
+            new_node.next = self.head
+            self.head.priv = new_node
+            self.head = new_node
+        self.num_of_data += 1
+    
+    def addLast(self,data):
+        new_node = Node(data)
+        if self.size() == 0:
+            self.head = new_node
+            self.tail = self.head
+        else:
+            self.tail.next = new_node
+            new_node.priv = self.tail
+            self.tail = new_node
+        self.num_of_data += 1
+    
+    def removeFirst(self):
+        if self.isEmpty():
+            return -1
+        elif self.size() == 1:
+            result = self.first()
+            dummy = Node("dummy")
+            self.head = dummy
+            self.tail = dummy
+            self.num_of_data = 0
+        else:
+            result = self.first()
+            self.head = self.head.next
+            self.head.priv = None
+            self.num_of_data -= 1
+        return result
+    
+    def removeLast(self):
+        if self.isEmpty():
+            return -1
+        elif self.size() == 1:
+            result = self.last()
+            dummy = Node("dummy")
+            self.head = dummy
+            self.tail = dummy
+            self.num_of_data = 0
+        else:
+            result = self.last()
+            self.tail = self.tail.priv
+            self.tail.next = None
+            self.num_of_data -= 1
+        return result
+    
+    def __str__(self):
+        result = ''
+        current_node = self.head
+        while current_node != None:
+            result += str(current_node.data)
+            result += '\n'
+            current_node = current_node.next
+        return result

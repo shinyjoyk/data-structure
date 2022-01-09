@@ -4,13 +4,13 @@ class Queue:
     def __init__(self):
         self.queue = SinglyLinkedList()
     
-    def enqueue(self,data):
+    def push(self,data):
         self.queue.addLast(data)
     
-    def dequeue(self):
+    def pop(self):
         return self.queue.removeFirst()
     
-    def first(self):
+    def top(self):
         return self.queue.first()
     
     def isEmpty(self):
